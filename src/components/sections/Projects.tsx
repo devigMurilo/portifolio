@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
-import { ArrowUpRight, Star } from 'lucide-react'
+import { ArrowUpRight, Code2, Globe, Star } from 'lucide-react'
 import { GithubIcon } from '../ui/BrandIcons'
 import { SectionHeading } from '../ui/SectionHeading'
 import { SpotlightCard } from '../ui/Spotlight'
@@ -9,7 +9,7 @@ import { LiquidButton } from '../ui/liquid-glass-button'
 import { profile, projects, type Project } from '../../data/profile'
 import { cn } from '@/lib/utils'
 
-const filters = ['Todos', 'Django', 'React', 'TypeScript', 'JavaScript'] as const
+const filters = ['Todos', 'Deploy', 'Repositório'] as const
 
 const statusStyles: Record<Project['status'], string> = {
   'Concluído': 'text-emerald-300 bg-emerald-400/10 border-emerald-400/20',
@@ -17,30 +17,54 @@ const statusStyles: Record<Project['status'], string> = {
   Estudo: 'text-cyan-300 bg-cyan-400/10 border-cyan-400/20',
 }
 
+const kindStyles: Record<Project['kind'], string> = {
+  Deploy: 'text-cyan-300 border-cyan-400/25 bg-cyan-400/10',
+  'Repositório': 'text-white/50 border-white/10 bg-white/4',
+}
+
 function ProjectCard({ project }: { project: Project }) {
+  // Deploy manda: se a aplicação está no ar, é para lá que o card leva.
+  const primaryUrl = project.liveUrl ?? project.repoUrl
+
   return (
     <TiltCard max={6} className="h-full">
       <SpotlightCard className="flex h-full flex-col p-6">
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0">
             <div className="flex items-center gap-2">
-              {project.featured ? <Star className="size-3.5 shrink-0 fill-accent-400 text-accent-400" /> : null}
+              {project.featured ? (
+                <Star className="size-3.5 shrink-0 fill-accent-400 text-accent-400" />
+              ) : null}
               <h3 className="truncate text-lg font-semibold transition-colors group-hover:text-accent-400">
                 {project.title}
               </h3>
             </div>
-            <p className="mt-1 truncate font-mono text-xs text-white/35">{project.repo}</p>
+            <div className="mt-1.5 flex items-center gap-2">
+              <span
+                className={cn(
+                  'shrink-0 rounded-full border px-2 py-0.5 text-[10px] tracking-wide uppercase',
+                  kindStyles[project.kind],
+                )}
+              >
+                {project.kind}
+              </span>
+              <p className="truncate font-mono text-xs text-white/35">{project.subtitle}</p>
+            </div>
           </div>
 
-          <a
-            href={project.url}
-            target="_blank"
-            rel="noreferrer"
-            aria-label={`Abrir ${project.title} no GitHub`}
-            className="grid size-9 shrink-0 place-items-center rounded-full border border-white/10 text-white/50 transition-all hover:border-accent-400/50 hover:bg-accent-500/10 hover:text-white"
-          >
-            <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </a>
+          {primaryUrl ? (
+            <a
+              href={primaryUrl}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={
+                project.liveUrl ? `Abrir ${project.title}` : `Ver ${project.title} no GitHub`
+              }
+              className="grid size-9 shrink-0 place-items-center rounded-full border border-white/10 text-white/50 transition-all hover:border-accent-400/50 hover:bg-accent-500/10 hover:text-white"
+            >
+              <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </a>
+          ) : null}
         </div>
 
         <p className="mt-4 grow text-sm leading-relaxed text-white/55">{project.description}</p>
@@ -56,11 +80,42 @@ function ProjectCard({ project }: { project: Project }) {
           ))}
         </div>
 
-        <div className="mt-5 flex items-center justify-between border-t border-white/6 pt-4">
-          <span className={cn('rounded-full border px-2.5 py-1 text-[11px]', statusStyles[project.status])}>
-            {project.status}
+        <div className="mt-5 flex flex-wrap items-center gap-2 border-t border-white/6 pt-4">
+          {project.liveUrl ? (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-full border border-cyan-400/25 bg-cyan-400/10 px-3 py-1.5 text-[11px] font-medium text-cyan-200 transition-colors hover:border-cyan-400/50 hover:text-white"
+            >
+              <Globe className="size-3.5" />
+              Ver site
+            </a>
+          ) : null}
+
+          {project.repoUrl ? (
+            <a
+              href={project.repoUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-full border border-white/10 px-3 py-1.5 text-[11px] font-medium text-white/55 transition-colors hover:border-accent-400/50 hover:text-white"
+            >
+              <Code2 className="size-3.5" />
+              Código
+            </a>
+          ) : null}
+
+          <span className="ml-auto inline-flex items-center gap-2">
+            <span
+              className={cn(
+                'rounded-full border px-2.5 py-1 text-[11px]',
+                statusStyles[project.status],
+              )}
+            >
+              {project.status}
+            </span>
+            <span className="font-mono text-xs text-white/30">{project.year}</span>
           </span>
-          <span className="font-mono text-xs text-white/30">{project.year}</span>
         </div>
       </SpotlightCard>
     </TiltCard>
@@ -71,10 +126,7 @@ export function Projects() {
   const [filter, setFilter] = useState<(typeof filters)[number]>('Todos')
 
   const visible = useMemo(
-    () =>
-      filter === 'Todos'
-        ? projects
-        : projects.filter((project) => project.tags.some((tag) => tag.includes(filter))),
+    () => (filter === 'Todos' ? projects : projects.filter((project) => project.kind === filter)),
     [filter],
   )
 
@@ -84,7 +136,7 @@ export function Projects() {
         <SectionHeading
           eyebrow="Projetos"
           title="O que eu já construí"
-          description="Projetos do meu GitHub — da faculdade e de estudo por conta própria. Todos com código aberto."
+          description="Aplicações no ar na Vercel e os repositórios que valem abrir o código. Tudo feito na faculdade ou por conta própria."
         />
 
         <div className="mb-10 flex flex-wrap gap-2">
@@ -102,7 +154,7 @@ export function Projects() {
                   : 'text-white/55 hover:text-white',
               )}
             >
-              {item}
+              {item === 'Todos' ? item : `${item}s`}
             </LiquidButton>
           ))}
         </div>
@@ -111,13 +163,12 @@ export function Projects() {
           <AnimatePresence mode="popLayout">
             {visible.map((project, index) => (
               <motion.div
-                key={project.repo}
+                key={project.title}
                 layout
                 initial={{ opacity: 0, scale: 0.94, y: 24 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.94, y: -12 }}
                 transition={{ duration: 0.4, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
-                className={cn(project.featured && filter === 'Todos' && 'lg:col-span-1')}
               >
                 <ProjectCard project={project} />
               </motion.div>

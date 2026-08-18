@@ -19,6 +19,23 @@ export const profile = {
   ],
 } as const
 
+/**
+ * Faixa fixada no herói. Capa e preview de 30s vêm da API pública de busca da
+ * Apple (`itunes.apple.com/search`), então são os arquivos oficiais servidos
+ * pela própria Apple — nada é rehospedado aqui.
+ */
+export const nowPlaying = {
+  track: 'Snap Out of It',
+  artist: 'Arctic Monkeys',
+  album: 'AM',
+  year: '2013',
+  artwork:
+    'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/69/9c/b5/699cb5d6-115c-ff73-9d26-e57ea4350d72/887828031795.png/600x600bb.jpg',
+  preview:
+    'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/53/2b/fd/532bfd4a-e84c-b4c0-e46a-df4f33e4d51a/mzaf_6684437442842576614.plus.aac.p.m4a',
+  url: 'https://music.apple.com/us/album/snap-out-of-it/663097964?i=663098063',
+} as const
+
 export type Skill = {
   name: string
   level: number
@@ -58,10 +75,14 @@ export const marqueeStack = [
 
 export type Project = {
   title: string
-  repo: string
+  /** Slug do repositório ou domínio do deploy — o que aparece abaixo do título. */
+  subtitle: string
   description: string
   tags: string[]
-  url: string
+  kind: 'Deploy' | 'Repositório'
+  /** Aplicação no ar. Quando existe, vira a ação principal do card. */
+  liveUrl?: string
+  repoUrl?: string
   featured?: boolean
   year: string
   status: 'Concluído' | 'Em desenvolvimento' | 'Estudo'
@@ -69,85 +90,50 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    title: 'Dom Feliciano',
+    subtitle: 'dom-feliciano.vercel.app',
+    description:
+      'Barbearia clássica com agendamento online: o cliente escolhe o serviço, vê os horários livres e reserva só com o nome — sem cadastro nem senha. Construído em Next.js.',
+    tags: ['Next.js', 'React', 'TypeScript'],
+    kind: 'Deploy',
+    liveUrl: 'https://dom-feliciano.vercel.app',
+    featured: true,
+    year: '2026',
+    status: 'Concluído',
+  },
+  {
+    title: 'Star Wars Explorer',
+    subtitle: 'pos-2026-projeto01.vercel.app',
+    description:
+      'Projeto da unidade 02 de Programação Orientada a Serviços: consome a SWAPI e lista personagens, planetas e naves, cada um com os filmes em que aparece.',
+    tags: ['React', 'Vite', 'API REST', 'JavaScript'],
+    kind: 'Deploy',
+    liveUrl: 'https://pos-2026-projeto01.vercel.app',
+    repoUrl: 'https://github.com/devigMurilo/pos-2026-projeto01',
+    featured: true,
+    year: '2026',
+    status: 'Concluído',
+  },
+  {
     title: 'SuapHub',
-    repo: 'Integra-o_Suap',
+    subtitle: 'devigMurilo/Integra-o_Suap',
     description:
       'Integração com a API do SUAP que expõe os dados acadêmicos do aluno em uma interface simples. Back-end em Django REST Framework, front-end em React.',
-    tags: ['Django REST', 'React', 'API REST', 'JavaScript'],
-    url: 'https://github.com/devigMurilo/Integra-o_Suap',
+    tags: ['Django REST', 'React', 'API REST', 'Python'],
+    kind: 'Repositório',
+    repoUrl: 'https://github.com/devigMurilo/Integra-o_Suap',
     featured: true,
     year: '2026',
     status: 'Em desenvolvimento',
   },
   {
     title: 'BE-Desk',
-    repo: 'WallisonAndre/BE-Desk',
+    subtitle: 'WallisonAndre/BE-Desk',
     description:
       'Sistema de gestão de reservas construído em Django, com controle de disponibilidade, cadastro de usuários e painel administrativo.',
     tags: ['Django', 'Python', 'MySQL'],
-    url: 'https://github.com/WallisonAndre/BE-Desk',
-    featured: true,
-    year: '2026',
-    status: 'Concluído',
-  },
-  {
-    title: 'Controle de Finanças',
-    repo: 'system-of-control-finances',
-    description:
-      'Aplicação de controle financeiro pessoal escrita em TypeScript: lançamento de receitas e despesas, categorias e visão consolidada do saldo.',
-    tags: ['TypeScript', 'React', 'Vite'],
-    url: 'https://github.com/devigMurilo/system-of-control-finances',
-    featured: true,
-    year: '2026',
-    status: 'Em desenvolvimento',
-  },
-  {
-    title: 'Agendamento Barbearia',
-    repo: 'appdeAgendamentoDjango',
-    description:
-      'App em Django onde o cliente escolhe serviço e horário e agenda o atendimento online, com agenda do profissional e confirmação.',
-    tags: ['Django', 'Python', 'HTML'],
-    url: 'https://github.com/devigMurilo/appdeAgendamentoDjango',
-    year: '2026',
-    status: 'Concluído',
-  },
-  {
-    title: 'Projeto Banco de Dados',
-    repo: 'projeto-banco-de-dados-semana-infor',
-    description:
-      'Projeto apresentado na Semana da Informática: modelagem relacional acompanhada de uma camada web para consulta dos dados.',
-    tags: ['JavaScript', 'SQL', 'Banco de Dados'],
-    url: 'https://github.com/devigMurilo/projeto-banco-de-dados-semana-infor',
-    year: '2025',
-    status: 'Concluído',
-  },
-  {
-    title: 'Clima App',
-    repo: 'climaapp',
-    description:
-      'Consumo de API de previsão do tempo em JavaScript puro, com busca por cidade e renderização das condições atuais.',
-    tags: ['JavaScript', 'API', 'CSS'],
-    url: 'https://github.com/devigMurilo/climaapp',
-    year: '2025',
-    status: 'Concluído',
-  },
-  {
-    title: 'Vanilla JS',
-    repo: 'vanilla-js',
-    description:
-      'Laboratório de front-end sem frameworks: manipulação de DOM, eventos e layouts feitos só com HTML, CSS e JavaScript.',
-    tags: ['JavaScript', 'CSS', 'DOM'],
-    url: 'https://github.com/devigMurilo/vanilla-js',
-    year: '2026',
-    status: 'Estudo',
-  },
-  {
-    title: 'Cronograma ENEM',
-    repo: 'cronogramaEnem',
-    description:
-      'Cronograma de estudos para o ENEM em página estática, organizando matérias e revisões ao longo das semanas.',
-    tags: ['HTML', 'CSS'],
-    url: 'https://github.com/devigMurilo/cronogramaEnem',
+    kind: 'Repositório',
+    repoUrl: 'https://github.com/WallisonAndre/BE-Desk',
     year: '2026',
     status: 'Concluído',
   },

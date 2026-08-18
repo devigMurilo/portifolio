@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'motion/react'
 import { Menu, X } from 'lucide-react'
 import { GithubIcon, LinkedinIcon } from '../ui/BrandIcons'
 import { LiquidButton } from '../ui/liquid-glass-button'
+import { RandomLetterSwap } from '../ui/random-letter-swap'
 import { profile } from '../../data/profile'
 import { cn } from '@/lib/utils'
 
@@ -79,7 +80,11 @@ export function Navbar() {
                   active === id ? 'text-white' : 'text-white/55 hover:text-white/90',
                 )}
               >
-                {label}
+                <RandomLetterSwap
+                  label={label}
+                  staggerDuration={0.025}
+                  transition={{ duration: 0.6, type: 'spring' }}
+                />
               </a>
               {active === id ? (
                 <motion.span
@@ -140,7 +145,11 @@ export function Navbar() {
                     active === id ? 'bg-white/8 text-white' : 'text-white/60 hover:bg-white/5',
                   )}
                 >
-                  {label}
+                  <RandomLetterSwap
+                    label={label}
+                    staggerDuration={0.025}
+                    transition={{ duration: 0.6, type: 'spring' }}
+                  />
                 </a>
               </motion.li>
             ))}
