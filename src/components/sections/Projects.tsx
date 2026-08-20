@@ -6,20 +6,21 @@ import { SectionHeading } from '../ui/SectionHeading'
 import { SpotlightCard } from '../ui/Spotlight'
 import { TiltCard } from '../ui/TiltCard'
 import { LiquidButton } from '../ui/liquid-glass-button'
+import { RandomLetterSwap } from '../ui/random-letter-swap'
 import { profile, projects, type Project } from '../../data/profile'
 import { cn } from '@/lib/utils'
 
 const filters = ['Todos', 'Deploy', 'Repositório'] as const
 
 const statusStyles: Record<Project['status'], string> = {
-  'Concluído': 'text-emerald-300 bg-emerald-400/10 border-emerald-400/20',
+  Concluído: 'text-emerald-300 bg-emerald-400/10 border-emerald-400/20',
   'Em desenvolvimento': 'text-amber-300 bg-amber-400/10 border-amber-400/20',
   Estudo: 'text-cyan-300 bg-cyan-400/10 border-cyan-400/20',
 }
 
 const kindStyles: Record<Project['kind'], string> = {
   Deploy: 'text-cyan-300 border-cyan-400/25 bg-cyan-400/10',
-  'Repositório': 'text-white/50 border-white/10 bg-white/4',
+  Repositório: 'text-white/50 border-white/10 bg-white/4',
 }
 
 function ProjectCard({ project }: { project: Project }) {
@@ -184,7 +185,7 @@ export function Projects() {
           <LiquidButton asChild size="lg" className="rounded-full font-medium">
             <a href={`${profile.github}?tab=repositories`} target="_blank" rel="noreferrer">
               <GithubIcon className="size-4" />
-              Ver todos os repositórios
+              <RandomLetterSwap label="Ver todos os repositórios" loop loopInterval={1700} />
               <ArrowUpRight className="size-4" />
             </a>
           </LiquidButton>

@@ -57,8 +57,9 @@ export function Hero() {
               words={[
                 'Desenvolvedor Full Stack',
                 'Python & Django',
-                'React & TypeScript',
+                'React & JavaScript',
                 'API REST',
+                'entusiasta de LLMs e automações',
                 'estudante do IFRN-SPP',
               ]}
             />
@@ -87,7 +88,7 @@ export function Hero() {
                 className="rounded-full font-semibold text-white lg:h-14 lg:px-10 lg:text-base"
               >
                 <a href="#projetos">
-                  Ver projetos
+                  <RandomLetterSwap label="Ver projetos" loop loopInterval={1400} />
                   <ArrowUpRight className="size-4 lg:size-5" />
                 </a>
               </LiquidButton>
@@ -101,7 +102,7 @@ export function Hero() {
               >
                 <a href={`mailto:${profile.email}`}>
                   <Sparkles className="size-4 text-accent-400 lg:size-5" />
-                  Fale comigo
+                  <RandomLetterSwap label="Fale comigo" loop loopInterval={1750} />
                 </a>
               </LiquidButton>
             </Magnetic>

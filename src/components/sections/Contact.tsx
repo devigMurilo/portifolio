@@ -3,6 +3,7 @@ import { motion } from 'motion/react'
 import { Check, Copy, Mail } from 'lucide-react'
 import { GithubIcon, LinkedinIcon } from '../ui/BrandIcons'
 import { BlurText } from '../ui/BlurText'
+import { RandomLetterSwap } from '../ui/random-letter-swap'
 import { Reveal } from '../ui/Reveal'
 import { Magnetic } from '../ui/Magnetic'
 import { LiquidButton } from '../ui/liquid-glass-button'
@@ -36,7 +37,9 @@ export function Contact() {
 
       <div className="relative mx-auto max-w-3xl text-center">
         <Reveal direction="scale">
-          <span className="font-mono text-xs tracking-[0.22em] text-accent-400 uppercase">Contato</span>
+          <span className="font-mono text-xs tracking-[0.22em] text-accent-400 uppercase">
+            Contato
+          </span>
         </Reveal>
 
         <h2 className="mt-5 text-4xl font-bold tracking-tight text-balance sm:text-6xl">
@@ -55,7 +58,7 @@ export function Contact() {
               <LiquidButton asChild size="xl" className="rounded-full font-semibold text-white">
                 <a href={`mailto:${profile.email}`}>
                   <Mail className="size-4" />
-                  Enviar e-mail
+                  <RandomLetterSwap label="Enviar e-mail" loop loopInterval={1500} />
                 </a>
               </LiquidButton>
             </Magnetic>

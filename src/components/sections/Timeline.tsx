@@ -19,11 +19,14 @@ export function Timeline() {
         <SectionHeading
           eyebrow="Trajetória"
           title="Como cheguei até aqui"
-          description="Da primeira página em HTML às APIs REST em Django, passando pelas disciplinas do IFRN."
+          description="Da primeira página em HTML às APIs REST => passando pelas disciplinas do IFRN."
         />
 
         <div ref={ref} className="relative pl-8 sm:pl-12">
-          <div className="absolute top-2 bottom-2 left-[7px] w-px bg-white/8 sm:left-[15px]" aria-hidden />
+          <div
+            className="absolute top-2 bottom-2 left-[7px] w-px bg-white/8 sm:left-[15px]"
+            aria-hidden
+          />
           <motion.div
             style={{ scaleY }}
             className="absolute top-2 bottom-2 left-[7px] w-px origin-top bg-linear-to-b from-accent-400 via-fuchsia-400 to-cyan-400 sm:left-[15px]"
@@ -37,7 +40,7 @@ export function Timeline() {
                   <motion.span
                     className="absolute top-1.5 -left-8 grid size-4 place-items-center rounded-full border border-accent-400/40 bg-ink-950 sm:-left-12"
                     whileInView={{ scale: [0.5, 1.25, 1] }}
-                    viewport={{ once: true, margin: '-70px' }}
+                    viewport={{ once: true, margin: '-70px 0px' }}
                     transition={{ duration: 0.6, delay: index * 0.08 }}
                     aria-hidden
                   >
@@ -49,7 +52,9 @@ export function Timeline() {
                     {item.title}
                   </h3>
                   <p className="mt-1 text-sm text-white/40">{item.place}</p>
-                  <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/55">{item.description}</p>
+                  <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/55">
+                    {item.description}
+                  </p>
                 </div>
               </Reveal>
             ))}

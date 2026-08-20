@@ -7,10 +7,15 @@ export const profile = {
   email: 'igormurilo.ac.21@gmail.com',
   github: 'https://github.com/devigMurilo',
   linkedin: 'https://www.linkedin.com/in/igor-murilo-68a487386',
+  instagram: 'https://instagram.com/_imurilo',
+  instagramHandle: '@_imurilo',
+  /** Só dígitos, com DDI e DDD (ex.: '5584999999999'). Vazio esconde o botão. */
+  whatsapp: '5584991488921',
   avatar: 'https://github.com/devigMurilo.png',
   bio: [
-    'Construo aplicações web de ponta a ponta — do modelo no banco até a interface. Meu foco atual é Python/Django no back-end e React/TypeScript no front-end.',
+    'Construo aplicações web de ponta a ponta — do modelo no banco até a interface. Meu foco atual é Python/Django no back-end e React no front-end.',
     'Hoje estudo Informática para Internet no IFRN campus São Paulo do Potengi, onde a maior parte dos meus projetos nasce: integrações com API REST, sistemas de agendamento e controle financeiro.',
+    'Fora da faculdade, o que me puxa é IA aplicada: sou entusiasta de LLMs e de automação de processos — tirar do dia a dia a tarefa repetitiva que ninguém deveria estar fazendo à mão.',
   ],
   stats: [
     { label: 'Repositórios públicos', value: '15+' },
@@ -34,42 +39,148 @@ export const nowPlaying = {
   preview:
     'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/53/2b/fd/532bfd4a-e84c-b4c0-e46a-df4f33e4d51a/mzaf_6684437442842576614.plus.aac.p.m4a',
   url: 'https://music.apple.com/us/album/snap-out-of-it/663097964?i=663098063',
+  /*
+   * Faixa inteira. Não dá para hospedar o arquivo — é gravação com direitos
+   * autorais — então a única via legal é o player oficial. Este id é o áudio
+   * oficial no canal da banda, e o embed sobe em youtube-nocookie.
+   */
+  fullTrackId: '1_O_T6Aq85E',
+} as const
+
+/**
+ * Copy da seção comercial. É argumento de venda, não dado do GitHub — por isso
+ * mora aqui, separado, para ser reescrito sem mexer em componente.
+ */
+export const pitch = {
+  eyebrow: 'Para empresas',
+  title: 'Cada dia fora da internet é um cliente que escolhe outro',
+  intro:
+    'Quem procura o seu serviço pesquisa antes de ligar. Se não encontra você — ou encontra uma página parada desde 2019 — encontra o seu concorrente. E decide ali, sem te dar chance de responder.',
+
+  /** O problema, na linguagem de quem perde dinheiro com ele. */
+  losses: [
+    {
+      title: 'Procuram você e não acham',
+      description:
+        'Alguém ouviu falar do seu trabalho e digitou o nome no Google. Sem site, o resultado é um perfil incompleto, um mapa desatualizado ou nada. A busca não para aí: ela continua até achar alguém.',
+    },
+    {
+      title: 'Preço vira o único argumento',
+      description:
+        'Sem um lugar que mostre o que você faz e como faz, o cliente não tem como comparar qualidade. Sobra comparar por preço — e sempre existe alguém disposto a cobrar menos.',
+    },
+    {
+      title: 'Você trabalha de sistema',
+      description:
+        'Horário, valor, endereço, disponibilidade, forma de pagamento: as mesmas perguntas respondidas uma por uma no WhatsApp. É tempo que sai do seu dia e atendimento que você perde enquanto digita.',
+    },
+    {
+      title: 'O concorrente parece maior',
+      description:
+        'Duas empresas do mesmo tamanho, uma com site e outra sem. Na primeira olhada, quem tem site parece mais estruturado, mais seguro e mais caro — no bom sentido.',
+    },
+  ],
+
+  /** A resposta, ancorada no que já foi construído e está no ar. */
+  answerTitle: 'Site não é enfeite. É a parte do negócio que trabalha sozinha',
+  answerIntro:
+    'Não entrego uma página bonita e parada. Entrego a coisa funcionando: o cliente entra, entende o que você faz, confia e age — sem passar por você.',
+  answers: [
+    {
+      title: 'Agendamento que roda sem você',
+      description:
+        'O cliente vê os horários livres e reserva sozinho, de madrugada se quiser. Já está no ar numa barbearia.',
+      proof: 'Dom Feliciano',
+      href: 'https://dom-feliciano.vercel.app',
+    },
+    {
+      title: 'Conversa com o que você já usa',
+      description:
+        'Integro sistemas por API: puxo dados de onde eles já estão em vez de te fazer digitar tudo de novo.',
+      proof: 'SuapHub · API do SUAP',
+      href: 'https://github.com/devigMurilo/Integra-o_Suap',
+    },
+    {
+      title: 'Publicado onde fizer sentido para o seu caso',
+      description:
+        'Site institucional vai para a Vercel: carrega rápido no celular e não gera conta de hospedagem no fim do mês. Quando o projeto pede mais controle, subo em nuvem — AWS e afins — com o servidor instalado e configurado por mim, do zero.',
+      proof: 'Star Wars Explorer',
+      href: 'https://pos-2026-projeto01.vercel.app',
+    },
+    {
+      title: 'Back-end de verdade quando precisa',
+      description:
+        'Se o seu caso pede cadastro, painel e banco de dados modelado, eu construo — Django e Python, não só a fachada.',
+      proof: 'BE-Desk',
+      href: 'https://github.com/WallisonAndre/BE-Desk',
+    },
+  ],
+
+  /** Por que comigo, sem números inventados: só o que é verificável. */
+  whyMe: [
+    'Você fala direto com quem escreve o código — nada de atendente no meio repassando recado.',
+    'Todo projeto meu é público: dá para abrir o código e ver como foi feito antes de me contratar.',
+    'Faço front-end e back-end, então o site inteiro é responsabilidade de uma pessoa só.',
+    'Cuido também de onde o site vive: instalação e configuração de servidor, nuvem e domínio — você não fica procurando outra pessoa para pôr no ar.',
+    'Começo pelo problema do seu negócio, não pelo template.',
+  ],
+
+  ctaTitle: 'Me conta o que a sua empresa faz',
+  ctaText:
+    'Explica em duas linhas o que você vende e como o cliente chega hoje até você. Eu respondo dizendo o que dá para resolver com um site — e o que não dá.',
 } as const
 
 export type Skill = {
   name: string
-  level: number
-  category: 'Back-end' | 'Front-end' | 'Dados' | 'Ferramentas'
+  category: 'Back-end' | 'Front-end' | 'Dados' | 'Infra' | 'IA no fluxo de trabalho' | 'Ferramentas'
 }
 
 export const skills: Skill[] = [
-  { name: 'Python', level: 85, category: 'Back-end' },
-  { name: 'Django', level: 82, category: 'Back-end' },
-  { name: 'Django REST Framework', level: 75, category: 'Back-end' },
-  { name: 'Node.js', level: 60, category: 'Back-end' },
-  { name: 'JavaScript', level: 80, category: 'Front-end' },
-  { name: 'TypeScript', level: 70, category: 'Front-end' },
-  { name: 'React', level: 78, category: 'Front-end' },
-  { name: 'HTML5', level: 90, category: 'Front-end' },
-  { name: 'CSS3', level: 85, category: 'Front-end' },
-  { name: 'MySQL', level: 72, category: 'Dados' },
-  { name: 'SQL', level: 70, category: 'Dados' },
-  { name: 'Git & GitHub', level: 80, category: 'Ferramentas' },
-  { name: 'Docker', level: 55, category: 'Ferramentas' },
+  { name: 'Python', category: 'Back-end' },
+  { name: 'Django', category: 'Back-end' },
+  { name: 'Django REST Framework', category: 'Back-end' },
+  { name: 'Node.js', category: 'Back-end' },
+  { name: 'JavaScript', category: 'Front-end' },
+  { name: 'React', category: 'Front-end' },
+  { name: 'HTML5', category: 'Front-end' },
+  { name: 'CSS3', category: 'Front-end' },
+  { name: 'MySQL', category: 'Dados' },
+  { name: 'PostgreSQL', category: 'Dados' },
+  { name: 'MariaDB', category: 'Dados' },
+  { name: 'Google Cloud', category: 'Infra' },
+  { name: 'Servidores', category: 'Infra' },
+  { name: 'Vercel', category: 'Infra' },
+  { name: 'Claude', category: 'IA no fluxo de trabalho' },
+  { name: 'Git & GitHub', category: 'Ferramentas' },
+  { name: 'Docker', category: 'Ferramentas' },
 ]
+
+/**
+ * Linha opcional embaixo do título de uma categoria. Existe para a categoria de
+ * IA: nome de ferramenta solto não diz nada: o que conta é onde ela entra no
+ * trabalho e o que continua sendo decisão minha.
+ */
+export const categoryNotes: Partial<Record<Skill['category'], string>> = {
+  'IA no fluxo de trabalho':
+    'Uso para revisar código, cortar boilerplate e destravar bug. Arquitetura, decisão técnica e revisão final continuam minhas — não entrego código que eu não saiba explicar linha por linha.',
+}
 
 export const marqueeStack = [
   'Python',
   'Django',
   'Django REST',
   'JavaScript',
-  'TypeScript',
   'React',
   'Node.js',
   'HTML5',
   'CSS3',
   'MySQL',
+  'PostgreSQL',
+  'MariaDB',
+  'Google Cloud',
+  'Servidores',
   'Docker',
+  'Claude',
   'Git',
 ]
 
@@ -160,6 +271,13 @@ export const timeline: TimelineItem[] = [
     place: 'IFRN — São Paulo do Potengi',
     description:
       'Fundamentos de back-end com Python e Django, modelagem de banco de dados relacional e desenvolvimento web.',
+  },
+  {
+    period: '2025',
+    title: 'Instalação e Configuração de Servidores',
+    place: 'IFRN — São Paulo do Potengi',
+    description:
+      'Disciplina de ICS: subir e configurar servidor do zero, serviços de rede e publicação de aplicação em nuvem. É de onde vem a parte de infraestrutura do meu trabalho.',
   },
   {
     period: '2025',

@@ -4,6 +4,7 @@ import { About } from './components/sections/About'
 import { Stack } from './components/sections/Stack'
 import { Projects } from './components/sections/Projects'
 import { Timeline } from './components/sections/Timeline'
+import { Pitch } from './components/sections/Pitch'
 import { Contact } from './components/sections/Contact'
 import { Footer } from './components/sections/Footer'
 import { ScrollProgress } from './components/ui/ScrollProgress'
@@ -22,6 +23,7 @@ export default function App() {
         <Stack />
         <Projects />
         <Timeline />
+        <Pitch />
         <Contact />
       </main>
 

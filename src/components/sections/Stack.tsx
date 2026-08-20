@@ -2,31 +2,33 @@ import { motion } from 'motion/react'
 import { SectionHeading } from '../ui/SectionHeading'
 import { Reveal } from '../ui/Reveal'
 import { Marquee } from '../ui/Marquee'
+import { SpotlightCard } from '../ui/Spotlight'
+import { TiltCard } from '../ui/TiltCard'
 import { TechIcon } from '../ui/TechIcons'
-import { skills, marqueeStack, type Skill } from '../../data/profile'
+import { skills, marqueeStack, categoryNotes, type Skill } from '../../data/profile'
 
-const categories: Skill['category'][] = ['Back-end', 'Front-end', 'Dados', 'Ferramentas']
+const categories: Skill['category'][] = [
+  'Back-end',
+  'Front-end',
+  'Dados',
+  'Infra',
+  'IA no fluxo de trabalho',
+  'Ferramentas',
+]
 
-function SkillBar({ skill, delay }: { skill: Skill; delay: number }) {
+function SkillChip({ skill, delay }: { skill: Skill; delay: number }) {
   return (
-    <div>
-      <div className="mb-2 flex items-center justify-between gap-3">
-        <span className="flex min-w-0 items-center gap-2 text-sm text-white/75">
-          <TechIcon name={skill.name} className="size-4" />
-          <span className="truncate">{skill.name}</span>
-        </span>
-        <span className="font-mono text-xs text-white/35">{skill.level}%</span>
-      </div>
-      <div className="h-1.5 overflow-hidden rounded-full bg-white/6">
-        <motion.div
-          className="h-full rounded-full bg-linear-to-r from-accent-500 to-cyan-400"
-          initial={{ width: 0 }}
-          whileInView={{ width: `${skill.level}%` }}
-          viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: 1.1, delay, ease: [0.22, 1, 0.36, 1] }}
-        />
-      </div>
-    </div>
+    <motion.li
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-60px 0px' }}
+      transition={{ duration: 0.45, delay, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -3 }}
+      className="flex items-center gap-2.5 rounded-xl border border-white/8 bg-white/3 px-3.5 py-2.5 text-sm text-white/70 transition-colors hover:border-accent-400/40 hover:text-white"
+    >
+      <TechIcon name={skill.name} className="size-4.5" />
+      {skill.name}
+    </motion.li>
   )
 }
 
@@ -38,24 +40,33 @@ export function Stack() {
         <SectionHeading
           eyebrow="Stack"
           title="Ferramentas que uso no dia a dia"
-          description="As tecnologias listadas no meu perfil do GitHub, com o nível honesto de cada uma."
+          description="O que eu realmente uso para construir e publicar — agrupado por onde entra no projeto."
         />
 
         <div className="grid gap-x-12 gap-y-10 md:grid-cols-2">
           {categories.map((category, categoryIndex) => {
             const items = skills.filter((skill) => skill.category === category)
+            if (items.length === 0) return null
+
             return (
-              <Reveal key={category} delay={categoryIndex * 0.08}>
-                <div className="rounded-2xl border border-white/8 bg-ink-900/50 p-6">
-                  <h3 className="mb-6 font-mono text-xs tracking-[0.2em] text-accent-400 uppercase">
-                    {category}
-                  </h3>
-                  <div className="space-y-5">
-                    {items.map((skill, index) => (
-                      <SkillBar key={skill.name} skill={skill} delay={index * 0.08} />
-                    ))}
-                  </div>
-                </div>
+              <Reveal key={category} delay={categoryIndex * 0.06} className="h-full">
+                <TiltCard max={6} className="h-full">
+                  <SpotlightCard className="h-full p-6">
+                    <h3 className="font-mono text-xs tracking-[0.2em] text-accent-400 uppercase">
+                      {category}
+                    </h3>
+                    {categoryNotes[category] ? (
+                      <p className="mt-3 text-sm leading-relaxed text-white/45">
+                        {categoryNotes[category]}
+                      </p>
+                    ) : null}
+                    <ul className="mt-5 flex flex-wrap gap-2.5">
+                      {items.map((skill, index) => (
+                        <SkillChip key={skill.name} skill={skill} delay={index * 0.05} />
+                      ))}
+                    </ul>
+                  </SpotlightCard>
+                </TiltCard>
               </Reveal>
             )
           })}

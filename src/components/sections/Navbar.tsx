@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
-import { Menu, X } from 'lucide-react'
-import { GithubIcon, LinkedinIcon } from '../ui/BrandIcons'
+import { GithubIcon, InstagramIcon, LinkedinIcon } from '../ui/BrandIcons'
 import { LiquidButton } from '../ui/liquid-glass-button'
 import { RandomLetterSwap } from '../ui/random-letter-swap'
 import { profile } from '../../data/profile'
@@ -13,8 +12,39 @@ const links = [
   { id: 'stack', label: 'Stack' },
   { id: 'projetos', label: 'Projetos' },
   { id: 'trajetoria', label: 'Trajetória' },
+  { id: 'empresas', label: 'Para empresas' },
   { id: 'contato', label: 'Contato' },
 ]
+
+/**
+ * Hambúrguer que vira X. As três barras ficam em posição fixa e só recebem
+ * `transform` — nada de animar `top`/`bottom`, que forçaria layout a cada frame.
+ * A do meio some encolhendo na horizontal enquanto as outras duas se cruzam.
+ */
+function BurgerIcon({ open }: { open: boolean }) {
+  const bar = 'absolute left-0 h-0.5 w-full rounded-full bg-current'
+  const spring = { type: 'spring', stiffness: 380, damping: 28 } as const
+
+  return (
+    <span className="relative block h-3.5 w-5" aria-hidden>
+      <motion.span
+        className={cn(bar, 'top-0 origin-center')}
+        animate={{ y: open ? 6 : 0, rotate: open ? 45 : 0 }}
+        transition={spring}
+      />
+      <motion.span
+        className={cn(bar, 'top-[6px]')}
+        animate={{ opacity: open ? 0 : 1, scaleX: open ? 0 : 1 }}
+        transition={{ duration: 0.2 }}
+      />
+      <motion.span
+        className={cn(bar, 'top-[12px] origin-center')}
+        animate={{ y: open ? -6 : 0, rotate: open ? -45 : 0 }}
+        transition={spring}
+      />
+    </span>
+  )
+}
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -58,7 +88,9 @@ export function Navbar() {
       <nav
         className={cn(
           'mx-auto flex max-w-6xl items-center justify-between rounded-2xl px-4 py-3 transition-all duration-300',
-          scrolled ? 'glass shadow-[0_10px_40px_-20px_rgba(0,0,0,0.9)]' : 'border-transparent bg-transparent',
+          scrolled
+            ? 'glass shadow-[0_10px_40px_-20px_rgba(0,0,0,0.9)]'
+            : 'border-transparent bg-transparent',
         )}
       >
         <a href="#inicio" className="group flex items-center gap-2 font-mono text-sm font-semibold">
@@ -108,6 +140,11 @@ export function Navbar() {
               <LinkedinIcon className="size-4.5" />
             </a>
           </LiquidButton>
+          <LiquidButton asChild size="icon" className="rounded-full text-white/60">
+            <a href={profile.instagram} target="_blank" rel="noreferrer" aria-label="Instagram">
+              <InstagramIcon className="size-4.5" />
+            </a>
+          </LiquidButton>
           <LiquidButton
             type="button"
             onClick={() => setOpen((value) => !value)}
@@ -116,7 +153,7 @@ export function Navbar() {
             size="icon"
             className="rounded-full text-white/70 md:hidden"
           >
-            {open ? <X className="size-5" /> : <Menu className="size-5" />}
+            <BurgerIcon open={open} />
           </LiquidButton>
         </div>
       </nav>
@@ -124,18 +161,25 @@ export function Navbar() {
       <AnimatePresence>
         {open ? (
           <motion.ul
-            initial={{ opacity: 0, y: -12, height: 0 }}
-            animate={{ opacity: 1, y: 0, height: 'auto' }}
-            exit={{ opacity: 0, y: -12, height: 0 }}
-            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ opacity: 0, height: 0, scaleY: 0.92 }}
+            animate={{ opacity: 1, height: 'auto', scaleY: 1 }}
+            exit={{ opacity: 0, height: 0, scaleY: 0.92 }}
+            style={{ transformOrigin: 'top' }}
+            transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
             className="mx-auto mt-2 max-w-6xl overflow-hidden rounded-2xl glass p-2 md:hidden"
           >
             {links.map(({ id, label }, index) => (
               <motion.li
                 key={id}
-                initial={{ opacity: 0, x: -10 }}
+                initial={{ opacity: 0, x: -14 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.05 + index * 0.04 }}
+                // Na saída a ordem inverte: o último item some primeiro.
+                exit={{
+                  opacity: 0,
+                  x: -14,
+                  transition: { delay: (links.length - 1 - index) * 0.03 },
+                }}
+                transition={{ delay: 0.06 + index * 0.045, ease: [0.22, 1, 0.36, 1] }}
               >
                 <a
                   href={`#${id}`}

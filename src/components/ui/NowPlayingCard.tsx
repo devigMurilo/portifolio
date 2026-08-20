@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import { motion } from 'motion/react'
-import { Music, Pause, Play } from 'lucide-react'
+import { AnimatePresence, motion } from 'motion/react'
+import { ChevronDown, Music, Pause, Play } from 'lucide-react'
 import { RandomLetterSwap } from './random-letter-swap'
 import { SpotlightCard } from './Spotlight'
 import { TiltCard } from './TiltCard'
@@ -42,6 +42,7 @@ export function NowPlayingCard({ className }: { className?: string }) {
   const audioRef = useRef<HTMLAudioElement>(null)
   const [playing, setPlaying] = useState(false)
   const [artworkFailed, setArtworkFailed] = useState(false)
+  const [showFull, setShowFull] = useState(false)
 
   // O <audio> pode parar sozinho (fim do preview de 30s, erro de rede),
   // então o estado do botão segue o elemento, não o clique.
@@ -54,6 +55,15 @@ export function NowPlayingCard({ className }: { className?: string }) {
     events.forEach((event) => audio.addEventListener(event, sync))
     return () => events.forEach((event) => audio.removeEventListener(event, sync))
   }, [])
+
+  /*
+   * O embed só é criado depois do clique: sem isso a página abriria conexão com
+   * o YouTube em todo carregamento, mesmo para quem nunca vai tocar a música.
+   */
+  const toggleFull = () => {
+    audioRef.current?.pause()
+    setShowFull((value) => !value)
+  }
 
   const toggle = async () => {
     const audio = audioRef.current
@@ -144,6 +154,40 @@ export function NowPlayingCard({ className }: { className?: string }) {
             )}
           </button>
         </div>
+
+        <button
+          type="button"
+          onClick={toggleFull}
+          aria-expanded={showFull}
+          className="mt-4 inline-flex items-center gap-1.5 rounded-full border border-white/10 px-3 py-1.5 text-[11px] font-medium text-white/50 transition-colors hover:border-accent-400/50 hover:text-white"
+        >
+          <ChevronDown
+            className={cn('size-3.5 transition-transform duration-300', showFull && 'rotate-180')}
+          />
+          {showFull ? 'fechar player' : 'ouvir a música completa'}
+        </button>
+
+        <AnimatePresence initial={false}>
+          {showFull ? (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              className="overflow-hidden"
+            >
+              <div className="mt-4 aspect-video w-full overflow-hidden rounded-xl border border-white/10">
+                <iframe
+                  src={`https://www.youtube-nocookie.com/embed/${nowPlaying.fullTrackId}?autoplay=1&rel=0&modestbranding=1`}
+                  title={`${nowPlaying.track} — ${nowPlaying.artist}, áudio oficial`}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"
+                  allowFullScreen
+                  className="size-full"
+                />
+              </div>
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
 
         <audio ref={audioRef} src={nowPlaying.preview} preload="none" />
       </SpotlightCard>
