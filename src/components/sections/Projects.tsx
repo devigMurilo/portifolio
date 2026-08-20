@@ -137,7 +137,7 @@ export function Projects() {
         <SectionHeading
           eyebrow="Projetos"
           title="O que eu já construí"
-          description="Aplicações no ar na Vercel e os repositórios que valem abrir o código. Tudo feito na faculdade ou por conta própria."
+          description="Aplicações no ar na Vercel e os repositórios que valem abrir o código. Tudo feito no curso técnico ou por conta própria."
         />
 
         <div className="mb-10 flex flex-wrap gap-2">

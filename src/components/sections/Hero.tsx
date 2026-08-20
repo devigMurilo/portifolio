@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from 'motion/react'
 import { ArrowDown, ArrowUpRight, MapPin, Sparkles } from 'lucide-react'
 import { AuroraBackground } from '../ui/AuroraBackground'
+import { ParticleField } from '../ui/ParticleField'
 import { BlurText } from '../ui/BlurText'
 import { TypeWriter } from '../ui/TypeWriter'
 import { LiquidButton } from '../ui/liquid-glass-button'
@@ -21,6 +22,7 @@ export function Hero() {
       className="relative flex min-h-svh items-center overflow-hidden px-4 pt-28 pb-20 sm:px-6"
     >
       <AuroraBackground />
+      <ParticleField />
 
       <motion.div
         style={{ y, opacity }}
@@ -60,7 +62,7 @@ export function Hero() {
                 'React & JavaScript',
                 'API REST',
                 'entusiasta de LLMs e automações',
-                'estudante do IFRN-SPP',
+                'técnico em Informática para Internet',
               ]}
             />
           </div>

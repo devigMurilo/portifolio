@@ -14,7 +14,7 @@ export function About() {
         <SectionHeading
           eyebrow="Sobre"
           title="Quem está por trás do código"
-          description="Estudante de Informática para Internet, focado em back-end com Python e em interfaces que dão gosto de usar."
+          description="Aluno do técnico em Informática para Internet, focado em back-end com Python e em interfaces que dão gosto de usar."
         />
 
         <div className="grid gap-8 lg:grid-cols-[1fr_1.25fr]">
@@ -80,7 +80,9 @@ export function About() {
                     className="rounded-2xl border border-white/8 bg-ink-850/60 p-5"
                   >
                     <p className="text-2xl font-bold text-gradient">{stat.value}</p>
-                    <p className="mt-1 text-xs tracking-wide text-white/40 uppercase">{stat.label}</p>
+                    <p className="mt-1 text-xs tracking-wide text-white/40 uppercase">
+                      {stat.label}
+                    </p>
                   </motion.div>
                 </Reveal>
               ))}

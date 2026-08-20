@@ -12,7 +12,7 @@ function Equalizer({ playing }: { playing: boolean }) {
   const bars = [0.9, 0.45, 1, 0.6, 0.75]
 
   return (
-    <div className="flex h-4 items-end gap-[3px] lg:h-5 lg:gap-1" aria-hidden>
+    <span className="flex h-4 items-end gap-[3px] lg:h-5 lg:gap-1" aria-hidden>
       {bars.map((peak, index) => (
         <motion.span
           key={index}
@@ -34,7 +34,7 @@ function Equalizer({ playing }: { playing: boolean }) {
           }
         />
       ))}
-    </div>
+    </span>
   )
 }
 

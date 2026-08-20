@@ -2,7 +2,7 @@ export const profile = {
   name: 'Igor Murilo',
   handle: 'devigMurilo',
   role: 'Desenvolvedor Full Stack',
-  headline: 'Estudante de Informática para Internet no IFRN-SPP',
+  headline: 'Estudante do técnico em Informática para Internet — IFRN-SPP',
   location: 'Rio Grande do Norte, Brasil',
   email: 'igormurilo.ac.21@gmail.com',
   github: 'https://github.com/devigMurilo',
@@ -14,8 +14,8 @@ export const profile = {
   avatar: 'https://github.com/devigMurilo.png',
   bio: [
     'Construo aplicações web de ponta a ponta — do modelo no banco até a interface. Meu foco atual é Python/Django no back-end e React no front-end.',
-    'Hoje estudo Informática para Internet no IFRN campus São Paulo do Potengi, onde a maior parte dos meus projetos nasce: integrações com API REST, sistemas de agendamento e controle financeiro.',
-    'Fora da faculdade, o que me puxa é IA aplicada: sou entusiasta de LLMs e de automação de processos — tirar do dia a dia a tarefa repetitiva que ninguém deveria estar fazendo à mão.',
+    'Hoje faço o técnico em Informática para Internet no IFRN campus São Paulo do Potengi, onde a maior parte dos meus projetos nasce: integrações com API REST, sistemas de agendamento e controle financeiro.',
+    'Fora do curso, o que me puxa é IA aplicada: sou entusiasta de LLMs e de automação de processos — tirar do dia a dia a tarefa repetitiva que ninguém deveria estar fazendo à mão.',
   ],
   stats: [
     { label: 'Repositórios públicos', value: '15+' },
