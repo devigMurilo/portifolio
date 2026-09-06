@@ -1,4 +1,5 @@
 import { motion, type Variants } from 'motion/react'
+import { tokenize } from '@/lib/text'
 import { cn } from '@/lib/utils'
 
 /**
@@ -9,6 +10,7 @@ export function BlurText({
   text,
   className,
   wordClassName,
+  accentClassName,
   blur = true,
   delay = 0,
   stagger = 0.06,
@@ -22,6 +24,8 @@ export function BlurText({
    * `background-clip: text` de um ancestral não pinta através dele.
    */
   wordClassName?: string
+  /** Classe das palavras marcadas com *asteriscos* no texto. */
+  accentClassName?: string
   /**
    * Desliga o blur. Obrigatório junto de gradiente: o Chrome não pinta um
    * `background-clip: text` enquanto o elemento tem `filter`, mesmo `blur(0px)`.
@@ -31,7 +35,7 @@ export function BlurText({
   stagger?: number
   once?: boolean
 }) {
-  const words = text.split(' ')
+  const words = tokenize(text)
 
   /*
    * Quem observa a viewport é o wrapper, não cada palavra. Com um observer por
@@ -65,15 +69,16 @@ export function BlurText({
     >
       {words.map((item, index) => (
         <motion.span
-          key={`${item}-${index}`}
+          key={`${item.word}-${index}`}
           className={cn(
             'inline-block whitespace-pre',
             blur ? 'will-change-[filter,transform]' : 'will-change-transform',
             wordClassName,
+            item.accent && accentClassName,
           )}
           variants={word}
         >
-          {item}
+          {item.word}
           {index < words.length - 1 ? ' ' : ''}
         </motion.span>
       ))}

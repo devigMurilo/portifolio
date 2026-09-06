@@ -27,7 +27,7 @@ export function ShimmerButton({ children, className, as = 'button', ...props }: 
       )}
     >
       <span
-        className="absolute inset-[-200%] animate-spin-slow bg-[conic-gradient(from_90deg_at_50%_50%,transparent_0%,var(--color-accent-400)_25%,var(--color-cyan-400)_45%,transparent_60%)] opacity-70"
+        className="absolute inset-[-200%] animate-spin-slow bg-[conic-gradient(from_90deg_at_50%_50%,transparent_0%,var(--color-accent-400)_25%,var(--color-steel-400)_45%,transparent_60%)] opacity-70"
         aria-hidden
       />
       <span className="absolute inset-[1px] rounded-full bg-ink-900" aria-hidden />

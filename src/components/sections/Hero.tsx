@@ -6,7 +6,6 @@ import { BlurText } from '../ui/BlurText'
 import { TypeWriter } from '../ui/TypeWriter'
 import { LiquidButton } from '../ui/liquid-glass-button'
 import { Magnetic } from '../ui/Magnetic'
-import { NowPlayingCard } from '../ui/NowPlayingCard'
 import { RandomLetterSwap } from '../ui/random-letter-swap'
 import { profile } from '../../data/profile'
 
@@ -24,10 +23,7 @@ export function Hero() {
       <AuroraBackground />
       <ParticleField />
 
-      <motion.div
-        style={{ y, opacity }}
-        className="relative mx-auto grid w-full max-w-6xl items-center gap-12 lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-16 xl:max-w-7xl xl:grid-cols-[minmax(0,1fr)_28rem] 2xl:max-w-[88rem] 2xl:grid-cols-[minmax(0,1fr)_32rem]"
-      >
+      <motion.div style={{ y, opacity }} className="relative mx-auto w-full max-w-6xl">
         <div>
           <motion.div
             initial={{ opacity: 0, y: 18 }}
@@ -36,13 +32,13 @@ export function Hero() {
             className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/4 px-3.5 py-1.5 text-xs text-white/70 backdrop-blur lg:px-4 lg:py-2 lg:text-sm"
           >
             <span className="relative flex size-2">
-              <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400/70" />
-              <span className="relative inline-flex size-2 rounded-full bg-emerald-400" />
+              <span className="absolute inline-flex size-full animate-ping rounded-full bg-accent-400/70" />
+              <span className="relative inline-flex size-2 rounded-full bg-accent-400" />
             </span>
             <RandomLetterSwap label="Disponível para estágio e projetos" staggerDuration={0.015} />
           </motion.div>
 
-          <h1 className="mt-7 text-5xl leading-[0.95] font-extrabold tracking-tight text-balance sm:text-7xl lg:text-8xl xl:text-9xl">
+          <h1 className="mt-7 font-display text-7xl leading-[0.85] font-normal tracking-[0.01em] text-balance uppercase sm:text-8xl lg:text-9xl xl:text-[10rem]">
             <BlurText text="Igor" once={false} />{' '}
             <BlurText
               text="Murilo"
@@ -134,15 +130,6 @@ export function Hero() {
             <RandomLetterSwap label="role para conhecer" staggerDuration={0.02} />
           </motion.div>
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 30, scale: 0.96 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.85, ease: [0.22, 1, 0.36, 1] }}
-          className="w-full max-w-md lg:max-w-none"
-        >
-          <NowPlayingCard />
-        </motion.div>
       </motion.div>
     </section>
   )

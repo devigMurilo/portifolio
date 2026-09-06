@@ -3,6 +3,7 @@ import { ArrowUpRight, Check, TrendingDown } from 'lucide-react'
 import { WhatsappIcon } from '../ui/BrandIcons'
 import { SectionHeading } from '../ui/SectionHeading'
 import { Reveal } from '../ui/Reveal'
+import { StackedCards } from '../ui/StackedCards'
 import { SpotlightCard } from '../ui/Spotlight'
 import { TiltCard } from '../ui/TiltCard'
 import { Magnetic } from '../ui/Magnetic'
@@ -19,7 +20,7 @@ export function Pitch() {
     : null
 
   return (
-    <section id="empresas" className="relative overflow-hidden px-4 py-28 sm:px-6">
+    <section id="empresas" className="relative px-4 py-28 sm:px-6">
       <div
         className="pointer-events-none absolute inset-x-0 top-0 h-96 bg-[radial-gradient(60%_100%_at_50%_0%,color-mix(in_oklab,var(--color-accent-500)_14%,transparent),transparent_70%)]"
         aria-hidden
@@ -28,27 +29,35 @@ export function Pitch() {
       <div className="relative mx-auto max-w-6xl">
         <SectionHeading eyebrow={pitch.eyebrow} title={pitch.title} description={pitch.intro} />
 
-        <div className="grid gap-5 sm:grid-cols-2">
+        <StackedCards className="mx-auto max-w-3xl space-y-16 pb-28">
           {pitch.losses.map((item, index) => (
-            <Reveal key={item.title} delay={index * 0.08}>
-              <TiltCard max={8} className="h-full">
-                <SpotlightCard className="h-full p-6" color="#f43f5e">
-                  <div className="flex items-start gap-3">
-                    <span className="mt-0.5 grid size-8 shrink-0 place-items-center rounded-lg border border-rose-400/20 bg-rose-500/10 text-rose-300">
-                      <TrendingDown className="size-4" />
-                    </span>
-                    <div>
-                      <h3 className="text-base font-semibold text-white">{item.title}</h3>
-                      <p className="mt-2 text-sm leading-relaxed text-white/55">
-                        {item.description}
-                      </p>
-                    </div>
+            <article
+              key={item.title}
+              className="rounded-3xl border border-white/10 bg-ink-850 p-7 shadow-[0_-24px_70px_-40px_rgba(0,0,0,0.95)] sm:p-9"
+            >
+              <div className="flex items-start gap-5">
+                <span
+                  aria-hidden
+                  className="font-display text-5xl leading-none text-accent-500 tabular-nums sm:text-6xl"
+                >
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-start gap-2.5">
+                    <TrendingDown className="mt-1 size-4 shrink-0 text-accent-400" />
+                    <h3 className="font-display text-2xl leading-none tracking-[0.01em] text-white uppercase sm:text-3xl">
+                      {item.title}
+                    </h3>
                   </div>
-                </SpotlightCard>
-              </TiltCard>
-            </Reveal>
+                  <p className="mt-3 text-sm leading-relaxed text-white/55 sm:text-base">
+                    {item.description}
+                  </p>
+                </div>
+              </div>
+            </article>
           ))}
-        </div>
+        </StackedCards>
 
         <div className="mt-24">
           <h3 className="max-w-3xl text-2xl font-bold tracking-tight text-balance sm:text-3xl lg:text-4xl">
@@ -66,7 +75,7 @@ export function Pitch() {
                 <TiltCard max={8} className="h-full">
                   <SpotlightCard className="flex h-full flex-col p-6">
                     <h4 className="flex items-start gap-2.5 text-base font-semibold text-white">
-                      <Check className="mt-0.5 size-4.5 shrink-0 text-emerald-400" />
+                      <Check className="mt-0.5 size-4.5 shrink-0 text-accent-400" />
                       {item.title}
                     </h4>
                     <p className="mt-3 grow text-sm leading-relaxed text-white/55">

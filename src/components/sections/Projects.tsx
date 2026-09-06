@@ -4,6 +4,7 @@ import { ArrowUpRight, Code2, Globe, Star } from 'lucide-react'
 import { GithubIcon } from '../ui/BrandIcons'
 import { SectionHeading } from '../ui/SectionHeading'
 import { SpotlightCard } from '../ui/Spotlight'
+import { StickyScroller } from '../ui/StickyScroller'
 import { TiltCard } from '../ui/TiltCard'
 import { LiquidButton } from '../ui/liquid-glass-button'
 import { RandomLetterSwap } from '../ui/random-letter-swap'
@@ -13,13 +14,13 @@ import { cn } from '@/lib/utils'
 const filters = ['Todos', 'Deploy', 'Repositório'] as const
 
 const statusStyles: Record<Project['status'], string> = {
-  Concluído: 'text-emerald-300 bg-emerald-400/10 border-emerald-400/20',
-  'Em desenvolvimento': 'text-amber-300 bg-amber-400/10 border-amber-400/20',
-  Estudo: 'text-cyan-300 bg-cyan-400/10 border-cyan-400/20',
+  Concluído: 'text-steel-200 bg-steel-400/12 border-steel-400/25',
+  'Em desenvolvimento': 'text-accent-400 bg-accent-500/12 border-accent-500/30',
+  Estudo: 'text-white/60 bg-white/6 border-white/15',
 }
 
 const kindStyles: Record<Project['kind'], string> = {
-  Deploy: 'text-cyan-300 border-cyan-400/25 bg-cyan-400/10',
+  Deploy: 'text-accent-300 border-accent-500/30 bg-accent-500/12',
   Repositório: 'text-white/50 border-white/10 bg-white/4',
 }
 
@@ -87,7 +88,7 @@ function ProjectCard({ project }: { project: Project }) {
               href={project.liveUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-full border border-cyan-400/25 bg-cyan-400/10 px-3 py-1.5 text-[11px] font-medium text-cyan-200 transition-colors hover:border-cyan-400/50 hover:text-white"
+              className="inline-flex items-center gap-1.5 rounded-full border border-accent-500/30 bg-accent-500/12 px-3 py-1.5 text-[11px] font-medium text-accent-300 transition-colors hover:border-accent-400/60 hover:text-white"
             >
               <Globe className="size-3.5" />
               Ver site
@@ -132,11 +133,11 @@ export function Projects() {
   )
 
   return (
-    <section id="projetos" className="relative px-4 py-28 sm:px-6">
-      <div className="mx-auto max-w-6xl">
+    <section id="projetos" className="relative py-28">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="Projetos"
-          title="O que eu já construí"
+          title="O que eu já *construí*"
           description="Aplicações no ar na Vercel e os repositórios que valem abrir o código. Tudo feito no curso técnico ou por conta própria."
         />
 
@@ -159,38 +160,43 @@ export function Projects() {
             </LiquidButton>
           ))}
         </div>
-
-        <motion.div layout className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <AnimatePresence mode="popLayout">
-            {visible.map((project, index) => (
-              <motion.div
-                key={project.title}
-                layout
-                initial={{ opacity: 0, scale: 0.94, y: 24 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.94, y: -12 }}
-                transition={{ duration: 0.4, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <ProjectCard project={project} />
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
-
-        {visible.length === 0 ? (
-          <p className="py-16 text-center text-white/40">Nenhum projeto com esse filtro.</p>
-        ) : null}
-
-        <div className="mt-14 flex justify-center">
-          <LiquidButton asChild size="lg" className="rounded-full font-medium">
-            <a href={`${profile.github}?tab=repositories`} target="_blank" rel="noreferrer">
-              <GithubIcon className="size-4" />
-              <RandomLetterSwap label="Ver todos os repositórios" loop loopInterval={1700} />
-              <ArrowUpRight className="size-4" />
-            </a>
-          </LiquidButton>
-        </div>
       </div>
+
+      <StickyScroller
+        footer={
+          <div className="mx-auto max-w-6xl px-4 sm:px-6">
+            {visible.length === 0 ? (
+              <p className="mb-10 text-center text-white/40">Nenhum projeto com esse filtro.</p>
+            ) : null}
+
+            <div className="flex justify-center">
+              <LiquidButton asChild size="lg" className="rounded-full font-medium">
+                <a href={`${profile.github}?tab=repositories`} target="_blank" rel="noreferrer">
+                  <GithubIcon className="size-4" />
+                  <RandomLetterSwap label="Ver todos os repositórios" loop loopInterval={1700} />
+                  <ArrowUpRight className="size-4" />
+                </a>
+              </LiquidButton>
+            </div>
+          </div>
+        }
+      >
+        <AnimatePresence mode="popLayout" initial={false}>
+          {visible.map((project, index) => (
+            <motion.div
+              key={project.title}
+              layout
+              initial={{ opacity: 0, scale: 0.94, y: 24 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.94, y: -12 }}
+              transition={{ duration: 0.4, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
+              className="w-[82vw] max-w-sm shrink-0 snap-start md:w-96"
+            >
+              <ProjectCard project={project} />
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </StickyScroller>
     </section>
   )
 }

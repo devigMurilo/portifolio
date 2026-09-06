@@ -42,13 +42,17 @@ export function Contact() {
           </span>
         </Reveal>
 
-        <h2 className="mt-5 text-4xl font-bold tracking-tight text-balance sm:text-6xl">
-          <BlurText text="Vamos construir algo juntos" />
+        <h2 className="mt-5 font-display text-6xl leading-[0.9] font-normal tracking-[0.01em] text-balance uppercase sm:text-8xl">
+          <BlurText
+            text="Vamos construir algo *juntos*"
+            accentClassName="font-serif text-accent-400 normal-case italic tracking-normal"
+          />
         </h2>
 
         <Reveal delay={0.2}>
           <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-white/55">
-            Aberto a estágio, freela e projeto colaborativo. Manda uma mensagem — respondo rápido.
+            Aberto a estágio, freela e projeto colaborativo. Manda uma mensagem que eu respondo
+            rápido.
           </p>
         </Reveal>
 
@@ -71,7 +75,7 @@ export function Contact() {
             >
               {copied ? (
                 <>
-                  <Check className="size-4 text-emerald-400" />
+                  <Check className="size-4 text-accent-400" />
                   Copiado
                 </>
               ) : (
