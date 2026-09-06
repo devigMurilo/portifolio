@@ -87,7 +87,7 @@ export const pitch = {
       title: 'Publicado onde fizer sentido para o seu caso',
       description:
         'Site institucional vai para a Vercel: carrega rápido no celular e não gera conta de hospedagem no fim do mês. Quando o projeto pede mais controle, subo em nuvem (AWS e afins) com o servidor instalado e configurado por mim, do zero.',
-      proof: 'Star Wars Explorer',
+      proof: 'Dragon Ball Z Explorer',
       href: 'https://pos-2026-projeto01.vercel.app',
     },
     {
@@ -196,11 +196,11 @@ export const projects: Project[] = [
     status: 'Concluído',
   },
   {
-    title: 'Star Wars Explorer',
+    title: 'Dragon Ball Z Explorer',
     subtitle: 'pos-2026-projeto01.vercel.app',
     description:
-      'Projeto da unidade 02 de Programação Orientada a Serviços: consome a SWAPI e lista personagens, planetas e naves, cada um com os filmes em que aparece.',
-    tags: ['React', 'Vite', 'API REST', 'JavaScript'],
+      'Projeto da unidade 02 de Programação Orientada a Serviços: consome a Dragon Ball API e, para o personagem escolhido, mostra raça, ki, afiliação, o planeta de origem e a lista de transformações.',
+    tags: ['JavaScript', 'Vite', 'API REST'],
     kind: 'Deploy',
     liveUrl: 'https://pos-2026-projeto01.vercel.app',
     repoUrl: 'https://github.com/devigMurilo/pos-2026-projeto01',
