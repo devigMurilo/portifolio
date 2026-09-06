@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from 'motion/react'
-import { ArrowDown, ArrowUpRight, MapPin, Sparkles } from 'lucide-react'
+import { ArrowDown, ArrowUpRight, Download, MapPin, Sparkles } from 'lucide-react'
 import { AuroraBackground } from '../ui/AuroraBackground'
 import { ParticleField } from '../ui/ParticleField'
 import { BlurText } from '../ui/BlurText'
@@ -101,6 +101,19 @@ export function Hero() {
                 <a href={`mailto:${profile.email}`}>
                   <Sparkles className="size-4 text-accent-400 lg:size-5" />
                   <RandomLetterSwap label="Fale comigo" loop loopInterval={1750} />
+                </a>
+              </LiquidButton>
+            </Magnetic>
+
+            <Magnetic strength={0.18}>
+              <LiquidButton
+                asChild
+                size="xl"
+                className="rounded-full font-semibold lg:h-14 lg:px-10 lg:text-base"
+              >
+                <a href={profile.resume} download>
+                  <Download className="size-4 text-accent-400 lg:size-5" />
+                  <RandomLetterSwap label="Baixar currículo" loop loopInterval={2100} />
                 </a>
               </LiquidButton>
             </Magnetic>

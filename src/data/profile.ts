@@ -12,6 +12,12 @@ export const profile = {
   /** Só dígitos, com DDI e DDD (ex.: '5584999999999'). Vazio esconde o botão. */
   whatsapp: '5584991488921',
   avatar: 'https://github.com/devigMurilo.png',
+  /**
+   * PDF servido de `public/`. O caminho é relativo por causa do `base: './'`
+   * do Vite, igual ao favicon. O `download` no link define o nome do arquivo
+   * salvo pelo visitante.
+   */
+  resume: './Igor_Murilo_Resume.pdf',
   bio: [
     'Construo aplicações web de *ponta a ponta*, do modelo no banco até a interface. Meu foco atual é Python/Django no back-end e React no front-end.',
     'Hoje faço o técnico em Informática para Internet no IFRN campus São Paulo do Potengi, onde a maior parte dos meus projetos nasce: integrações com API REST, sistemas de agendamento e controle financeiro.',

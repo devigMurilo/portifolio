@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'motion/react'
-import { Check, Copy, Mail } from 'lucide-react'
+import { Check, Copy, Download, Mail } from 'lucide-react'
 import { GithubIcon, LinkedinIcon } from '../ui/BrandIcons'
 import { BlurText } from '../ui/BlurText'
 import { RandomLetterSwap } from '../ui/random-letter-swap'
@@ -85,6 +85,15 @@ export function Contact() {
                 </>
               )}
             </LiquidButton>
+
+            <Magnetic strength={0.2}>
+              <LiquidButton asChild size="xl" className="rounded-full font-semibold">
+                <a href={profile.resume} download>
+                  <Download className="size-4 text-accent-400" />
+                  <RandomLetterSwap label="Baixar currículo" loop loopInterval={2100} />
+                </a>
+              </LiquidButton>
+            </Magnetic>
           </div>
         </Reveal>
 
