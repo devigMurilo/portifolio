@@ -13,11 +13,11 @@ export function AuroraBackground({ className }: { className?: string }) {
     >
       <div className="absolute -top-40 -left-32 h-[38rem] w-[38rem] rounded-full bg-accent-600/30 blur-[120px] animate-aurora" />
       <div
-        className="absolute top-10 right-[-10rem] h-[32rem] w-[32rem] rounded-full bg-cyan-400/20 blur-[130px] animate-aurora"
+        className="absolute top-10 right-[-10rem] h-[32rem] w-[32rem] rounded-full bg-steel-400/20 blur-[130px] animate-aurora"
         style={{ animationDelay: '-7s' }}
       />
       <div
-        className="absolute bottom-[-14rem] left-1/3 h-[34rem] w-[34rem] rounded-full bg-fuchsia-500/20 blur-[140px] animate-aurora"
+        className="absolute bottom-[-14rem] left-1/3 h-[34rem] w-[34rem] rounded-full bg-accent-700/20 blur-[140px] animate-aurora"
         style={{ animationDelay: '-14s' }}
       />
 

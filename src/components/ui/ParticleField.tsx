@@ -20,7 +20,7 @@ type Particle = {
 }
 
 /** Paleta do site, com peso maior no roxo para o campo não virar arco-íris. */
-const COLORS = ['#a78bfa', '#a78bfa', '#8b5cf6', '#22d3ee', '#e879f9', '#e6e6ee']
+const COLORS = ['#c8102e', '#c8102e', '#ef3b54', '#9b1b30', '#a7a8aa', '#ffffff']
 
 /** Raio de influência do ponteiro, em px. */
 const POINTER_RADIUS = 170

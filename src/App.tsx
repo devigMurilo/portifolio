@@ -3,7 +3,6 @@ import { Hero } from './components/sections/Hero'
 import { About } from './components/sections/About'
 import { Stack } from './components/sections/Stack'
 import { Projects } from './components/sections/Projects'
-import { Timeline } from './components/sections/Timeline'
 import { Pitch } from './components/sections/Pitch'
 import { Contact } from './components/sections/Contact'
 import { Footer } from './components/sections/Footer'
@@ -22,7 +21,6 @@ export default function App() {
         <About />
         <Stack />
         <Projects />
-        <Timeline />
         <Pitch />
         <Contact />
       </main>

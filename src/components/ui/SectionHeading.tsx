@@ -19,8 +19,11 @@ export function SectionHeading({
         </span>
       </Reveal>
 
-      <h2 className="mt-4 text-3xl font-bold tracking-tight text-balance sm:text-4xl md:text-5xl">
-        <BlurText text={title} />
+      <h2 className="mt-4 font-display text-5xl leading-[0.9] font-normal tracking-[0.01em] text-balance uppercase sm:text-6xl md:text-7xl">
+        <BlurText
+          text={title}
+          accentClassName="font-serif text-accent-400 normal-case italic tracking-normal"
+        />
       </h2>
 
       {description ? (

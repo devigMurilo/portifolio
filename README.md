@@ -6,15 +6,15 @@ Vercel e os repositórios que valem abrir o código; bio e stack vêm do perfil 
 
 ## Stack
 
-| Camada      | Tecnologia                                        |
-| ----------- | ------------------------------------------------- |
-| Build       | Vite 8                                            |
-| UI          | React 19 + TypeScript                             |
-| Estilo      | Tailwind CSS 4 (`@theme`)                         |
-| Componentes | convenções shadcn/ui + `@radix-ui/react-slot`     |
-| Variantes   | `class-variance-authority`, `tailwind-merge`       |
-| Animação    | Motion (`motion/react`)                           |
-| Ícones      | lucide-react + SVG embutido                       |
+| Camada      | Tecnologia                                    |
+| ----------- | --------------------------------------------- |
+| Build       | Vite 8                                        |
+| UI          | React 19 + TypeScript                         |
+| Estilo      | Tailwind CSS 4 (`@theme`)                     |
+| Componentes | convenções shadcn/ui + `@radix-ui/react-slot` |
+| Variantes   | `class-variance-authority`, `tailwind-merge`  |
+| Animação    | Motion (`motion/react`)                       |
+| Ícones      | lucide-react + SVG embutido                   |
 
 ## Rodando localmente
 
@@ -42,11 +42,11 @@ npm run preview
 src/
 ├── App.tsx                 # composição das seções
 ├── index.css               # tokens shadcn, tema Tailwind, keyframes e utilitários
-├── data/profile.ts         # única fonte de conteúdo (perfil, skills, projetos, timeline)
+├── data/profile.ts         # única fonte de conteúdo (perfil, skills, projetos)
 ├── lib/utils.ts            # cn() — clsx + tailwind-merge
 └── components/
     ├── demo/               # demos de referência dos componentes do registro
-    ├── sections/           # Navbar, Hero, About, Stack, Projects, Timeline, Contact, Footer
+    ├── sections/           # Navbar, Hero, About, Stack, Projects, Pitch, Contact, Footer
     └── ui/                 # primitivas animadas reutilizáveis + componentes shadcn
 ```
 
@@ -58,7 +58,7 @@ O projeto segue as convenções do shadcn/ui para que componentes do registro po
 adaptação. Quatro peças fazem isso funcionar:
 
 1. **`components.json`** — declara os aliases que a CLI do shadcn lê. Com ele, `npx shadcn@latest add
-   <componente>` já escreve no lugar certo.
+<componente>` já escreve no lugar certo.
 2. **Alias `@/`** — apontando para `src/`, declarado em dois lugares: `paths` no `tsconfig.json` (para
    o TypeScript) e `resolve.alias` no `vite.config.ts` (para o bundler). Faltando um dos dois, o
    editor ou o build quebra.
@@ -76,31 +76,10 @@ O `cn()` aqui usa `tailwind-merge`, não só concatenação: sem ele, `cn('text-
 mantém as duas classes e o vencedor sai da ordem do CSS, não do argumento. Os botões dependem disso
 para sobrescrever a cor da variante.
 
-## Card de música no herói
-
-`NowPlayingCard` fixa uma faixa no herói — capa, título, artista, álbum e uma prévia de 30 segundos
-com play/pause. A faixa fica em `nowPlaying`, dentro de
-[`profile.ts`](src/data/profile.ts); trocar de música é trocar esse objeto.
-
-Capa e prévia vêm da API pública de busca da Apple (`itunes.apple.com/search`), então são os arquivos
-oficiais servidos pela própria Apple — nada é rehospedado no projeto. Para descobrir as URLs de outra
-faixa:
-
-```bash
-curl -s "https://itunes.apple.com/search?term=arctic+monkeys+snap+out+of+it&entity=song&limit=1"
-```
-
-O campo `artworkUrl100` volta em 100×100; troque o sufixo por `600x600bb.jpg` para a versão grande.
-
-Detalhes que importam: o áudio só toca por clique (nada de autoplay), o estado do botão segue os
-eventos do próprio elemento `<audio>` em vez do clique — assim ele volta para "play" sozinho quando a
-prévia acaba; e a capa tem `onError` que cai para um ícone, então uma URL que expire não deixa um
-buraco no layout.
-
 ## Menu com troca de letras
 
-Os links da navbar (desktop e mobile), o badge e o rótulo de scroll do herói e os textos do card de
-música usam `RandomLetterSwap`, de
+Os links da navbar (desktop e mobile), o badge e o rótulo de scroll do herói usam `RandomLetterSwap`,
+de
 [`random-letter-swap.tsx`](src/components/ui/random-letter-swap.tsx). Cada caractere vira uma coluna
 com `overflow: hidden` e duas cópias empilhadas; no hover as duas sobem uma altura de linha, então a
 letra é substituída por ela mesma.
@@ -134,7 +113,7 @@ e indexação:
 Duas correções foram necessárias no componente publicado, ambas comentadas no arquivo:
 
 - **`asChild` quebrava em runtime.** O original manda as camadas de vidro como irmãs para o `Slot`, e
-  o `Slot` do Radix aceita um único filho (`React.Children.only`). Agora as camadas entram *dentro*
+  o `Slot` do Radix aceita um único filho (`React.Children.only`). Agora as camadas entram _dentro_
   do elemento do consumidor.
 - **Ícone + rótulo empilhavam em duas linhas.** O conteúdo ia num `<div>` block; como as camadas de
   vidro são absolutas e saem do fluxo, sobrava um único filho em fluxo e o `gap-2` do botão não tinha
@@ -153,20 +132,20 @@ alternativa caso o vidro não agrade.
 As primitivas em `src/components/ui/` foram construídas do zero, tomando como referência os padrões
 de animação do [21st.dev](https://21st.dev):
 
-| Componente            | Efeito                                                                    |
-| --------------------- | ------------------------------------------------------------------------- |
-| `AuroraBackground`    | Três manchas de cor em blur pesado girando em loop sobre uma grade fina    |
-| `Spotlight`           | Brilho radial que segue o cursor dentro do card                           |
-| `TiltCard`            | Inclinação 3D com mola, proporcional à posição do ponteiro                |
-| `Magnetic`            | Elemento é atraído na direção do cursor                                   |
-| `ShimmerButton`       | Borda cônica em rotação + varredura de brilho interna (não usado)         |
-| `BlurText`            | Texto revelado palavra por palavra, saindo de `blur()`                    |
-| `TypeWriter`          | Digitação e apagamento cíclico com cursor piscando                        |
-| `Marquee`             | Faixa infinita com conteúdo duplicado, pausa no hover                     |
-| `Reveal`              | Wrapper de scroll reveal com direção configurável                         |
-| `ScrollProgress`      | Barra de progresso do scroll no topo                                      |
-| `GlowCursor`          | Halo que segue o ponteiro com atraso elástico (desligado em touch)        |
-| `RandomLetterSwap`    | Letras trocadas por cópias deslizantes, em ordem sorteada a cada hover    |
+| Componente         | Efeito                                                                  |
+| ------------------ | ----------------------------------------------------------------------- |
+| `AuroraBackground` | Três manchas de cor em blur pesado girando em loop sobre uma grade fina |
+| `Spotlight`        | Brilho radial que segue o cursor dentro do card                         |
+| `TiltCard`         | Inclinação 3D com mola, proporcional à posição do ponteiro              |
+| `Magnetic`         | Elemento é atraído na direção do cursor                                 |
+| `ShimmerButton`    | Borda cônica em rotação + varredura de brilho interna (não usado)       |
+| `BlurText`         | Texto revelado palavra por palavra, saindo de `blur()`                  |
+| `TypeWriter`       | Digitação e apagamento cíclico com cursor piscando                      |
+| `Marquee`          | Faixa infinita com conteúdo duplicado, pausa no hover                   |
+| `Reveal`           | Wrapper de scroll reveal com direção configurável                       |
+| `ScrollProgress`   | Barra de progresso do scroll no topo                                    |
+| `GlowCursor`       | Halo que segue o ponteiro com atraso elástico (desligado em touch)      |
+| `RandomLetterSwap` | Letras trocadas por cópias deslizantes, em ordem sorteada a cada hover  |
 
 Todas as animações respeitam `prefers-reduced-motion: reduce`, desativadas via `src/index.css`.
 
@@ -179,8 +158,8 @@ marcas para usar 11. `<TechIcon name="React" />` resolve o nome, aceita apelidos
 aparece sozinho sem quebrar o layout.
 
 Duas observações de contraste: o verde oficial do Django (`#092E20`) é quase preto no fundo escuro,
-então usamos o verde claro da marca (`#44B78B`); o roxo do CSS foi alinhado ao roxo de destaque do
-site (`#8B5CF6`).
+então usamos o verde claro da marca (`#44B78B`); a cor do CSS foi alinhada ao
+vermelho de destaque do site (`#C8102E`).
 
 ## Notas de implementação
 

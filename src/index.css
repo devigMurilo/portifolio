@@ -12,44 +12,44 @@
   --radius: 0.625rem;
 
   --background: #ffffff;
-  --foreground: #0b0b10;
+  --foreground: #101820;
   --card: #ffffff;
-  --card-foreground: #0b0b10;
+  --card-foreground: #101820;
   --popover: #ffffff;
-  --popover-foreground: #0b0b10;
-  --primary: #7c3aed;
+  --popover-foreground: #101820;
+  --primary: #c8102e;
   --primary-foreground: #ffffff;
   --secondary: #f4f4f5;
   --secondary-foreground: #18181b;
   --muted: #f4f4f5;
   --muted-foreground: #71717a;
   --accent: #f4f4f5;
-  --accent-foreground: #18181b;
+  --accent-foreground: #101820;
   --destructive: #dc2626;
   --border: #e4e4e7;
   --input: #e4e4e7;
-  --ring: #8b5cf6;
+  --ring: #c8102e;
 }
 
 .dark {
-  --background: #08080b;
-  --foreground: #e6e6ee;
-  --card: #101017;
-  --card-foreground: #e6e6ee;
-  --popover: #101017;
-  --popover-foreground: #e6e6ee;
-  --primary: #a78bfa;
-  --primary-foreground: #0b0b10;
-  --secondary: #16161f;
-  --secondary-foreground: #e6e6ee;
-  --muted: #16161f;
-  --muted-foreground: #8b8b9a;
-  --accent: #23232f;
-  --accent-foreground: #e6e6ee;
+  --background: #0a0f14;
+  --foreground: #e7e8ea;
+  --card: #13171b;
+  --card-foreground: #e7e8ea;
+  --popover: #13171b;
+  --popover-foreground: #e7e8ea;
+  --primary: #ef3b54;
+  --primary-foreground: #101820;
+  --secondary: #1b2026;
+  --secondary-foreground: #e7e8ea;
+  --muted: #1b2026;
+  --muted-foreground: #9a9b9d;
+  --accent: #343339;
+  --accent-foreground: #e7e8ea;
   --destructive: #ef4444;
   --border: oklch(1 0 0 / 12%);
   --input: oklch(1 0 0 / 16%);
-  --ring: #a78bfa;
+  --ring: #ef3b54;
 }
 
 @theme inline {
@@ -81,19 +81,33 @@
 }
 
 @theme {
-  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  /* Três famílias com papéis separados: a condensada grita, a sans conversa e
+     a serifada em itálico entra só nas palavras que precisam de ênfase. */
+  --font-display: 'Bebas Neue', 'Space Grotesk', ui-sans-serif, sans-serif;
+  --font-sans: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'DM Serif Display', ui-serif, Georgia, serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 
-  --color-ink-950: #08080b;
-  --color-ink-900: #0b0b10;
-  --color-ink-850: #101017;
-  --color-ink-800: #16161f;
-  --color-ink-700: #23232f;
+  /* Pretos do uniforme (#101820 / #13171B) subindo até o carvão (#343339).
+     O 950 é o #101820 aprofundado, para os cards destacarem do fundo. */
+  --color-ink-950: #0a0f14;
+  --color-ink-900: #101820;
+  --color-ink-850: #13171b;
+  --color-ink-800: #1b2026;
+  --color-ink-700: #343339;
 
-  --color-accent-400: #a78bfa;
-  --color-accent-500: #8b5cf6;
-  --color-accent-600: #7c3aed;
-  --color-cyan-400: #22d3ee;
+  /* Vermelhos do traje. O 400 é um tint do #C8102E: o vermelho puro em texto
+     pequeno dá 3:1 sobre o preto, abaixo do mínimo legível. */
+  --color-accent-300: #ff7183;
+  --color-accent-400: #ef3b54;
+  --color-accent-500: #c8102e;
+  --color-accent-600: #9b1b30;
+  --color-accent-700: #60262c;
+
+  /* Cinza das katanas — segunda cor dos gradientes, no lugar do ciano. */
+  --color-steel-200: #dcdddd;
+  --color-steel-300: #c2c3c4;
+  --color-steel-400: #a7a8aa;
 
   --animate-aurora: aurora 22s ease-in-out infinite alternate;
   --animate-shimmer: shimmer 2.4s linear infinite;
@@ -165,7 +179,7 @@
 
   body {
     background-color: var(--color-ink-950);
-    color: #e6e6ee;
+    color: #e7e8ea;
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
@@ -207,10 +221,11 @@
 @utility text-gradient {
   background-image: linear-gradient(
     110deg,
-    var(--color-accent-400) 0%,
-    #e9d5ff 35%,
-    var(--color-cyan-400) 70%,
-    var(--color-accent-400) 100%
+    var(--color-accent-500) 0%,
+    var(--color-accent-300) 28%,
+    #ffffff 50%,
+    var(--color-accent-400) 78%,
+    var(--color-accent-600) 100%
   );
   background-size: 220% 100%;
   -webkit-background-clip: text;

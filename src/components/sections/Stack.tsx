@@ -1,9 +1,7 @@
 import { motion } from 'motion/react'
 import { SectionHeading } from '../ui/SectionHeading'
-import { Reveal } from '../ui/Reveal'
 import { Marquee } from '../ui/Marquee'
-import { SpotlightCard } from '../ui/Spotlight'
-import { TiltCard } from '../ui/TiltCard'
+import { StackedCards } from '../ui/StackedCards'
 import { TechIcon } from '../ui/TechIcons'
 import { skills, marqueeStack, categoryNotes, type Skill } from '../../data/profile'
 
@@ -34,43 +32,52 @@ function SkillChip({ skill, delay }: { skill: Skill; delay: number }) {
 
 export function Stack() {
   return (
-    <section id="stack" className="relative overflow-hidden px-4 py-28 sm:px-6">
+    <section id="stack" className="relative px-4 py-28 sm:px-6">
       <div className="pointer-events-none absolute inset-0 grid-lines opacity-40" aria-hidden />
       <div className="relative mx-auto max-w-6xl">
         <SectionHeading
           eyebrow="Stack"
-          title="Ferramentas que uso no dia a dia"
-          description="O que eu realmente uso para construir e publicar — agrupado por onde entra no projeto."
+          title="Ferramentas que uso no *dia a dia*"
+          description="O que eu realmente uso para construir e publicar, agrupado por onde entra no projeto."
         />
 
-        <div className="grid gap-x-12 gap-y-10 md:grid-cols-2">
+        <StackedCards className="mx-auto max-w-3xl space-y-14 pb-28" scaleStep={0.03}>
           {categories.map((category, categoryIndex) => {
             const items = skills.filter((skill) => skill.category === category)
             if (items.length === 0) return null
 
             return (
-              <Reveal key={category} delay={categoryIndex * 0.06} className="h-full">
-                <TiltCard max={6} className="h-full">
-                  <SpotlightCard className="h-full p-6">
-                    <h3 className="font-mono text-xs tracking-[0.2em] text-accent-400 uppercase">
-                      {category}
-                    </h3>
-                    {categoryNotes[category] ? (
-                      <p className="mt-3 text-sm leading-relaxed text-white/45">
-                        {categoryNotes[category]}
-                      </p>
-                    ) : null}
-                    <ul className="mt-5 flex flex-wrap gap-2.5">
-                      {items.map((skill, index) => (
-                        <SkillChip key={skill.name} skill={skill} delay={index * 0.05} />
-                      ))}
-                    </ul>
-                  </SpotlightCard>
-                </TiltCard>
-              </Reveal>
+              <article
+                key={category}
+                className="rounded-3xl border border-white/10 bg-ink-850 p-7 shadow-[0_-24px_70px_-40px_rgba(0,0,0,0.95)] sm:p-9"
+              >
+                <div className="flex items-baseline gap-4">
+                  <span
+                    aria-hidden
+                    className="font-display text-4xl leading-none text-accent-500 tabular-nums"
+                  >
+                    {String(categoryIndex + 1).padStart(2, '0')}
+                  </span>
+                  <h3 className="font-display text-2xl leading-none tracking-[0.01em] text-white uppercase sm:text-3xl">
+                    {category}
+                  </h3>
+                </div>
+
+                {categoryNotes[category] ? (
+                  <p className="mt-4 text-sm leading-relaxed text-white/45">
+                    {categoryNotes[category]}
+                  </p>
+                ) : null}
+
+                <ul className="mt-6 flex flex-wrap gap-2.5">
+                  {items.map((skill, index) => (
+                    <SkillChip key={skill.name} skill={skill} delay={index * 0.05} />
+                  ))}
+                </ul>
+              </article>
             )
           })}
-        </div>
+        </StackedCards>
       </div>
 
       <div className="relative mt-20 space-y-4">

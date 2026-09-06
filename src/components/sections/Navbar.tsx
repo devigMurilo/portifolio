@@ -11,7 +11,6 @@ const links = [
   { id: 'sobre', label: 'Sobre' },
   { id: 'stack', label: 'Stack' },
   { id: 'projetos', label: 'Projetos' },
-  { id: 'trajetoria', label: 'Trajetória' },
   { id: 'empresas', label: 'Para empresas' },
   { id: 'contato', label: 'Contato' },
 ]
@@ -94,7 +93,7 @@ export function Navbar() {
         )}
       >
         <a href="#inicio" className="group flex items-center gap-2 font-mono text-sm font-semibold">
-          <span className="grid size-8 place-items-center rounded-lg bg-linear-to-br from-accent-500 to-cyan-400 text-ink-950">
+          <span className="grid size-8 place-items-center rounded-lg bg-linear-to-br from-accent-500 to-steel-400 text-ink-950">
             IM
           </span>
           <span className="hidden text-white/80 transition-colors group-hover:text-white sm:block">
